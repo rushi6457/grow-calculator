@@ -16,7 +16,7 @@ app.use(cors({origin:true,credentials:true}))
 app.post("/user/signup",userRouter.Signup)
 app.post("/user/login",userRouter.Login)
 app.get("/users",userRouter.UserProfiles)
-app.get("/calculate",calculateRouter.Returns)
+app.post("/calculate",calculateRouter.Returns)
 
 app.get("/",(req,res)=>res.send("HELLO"))
 

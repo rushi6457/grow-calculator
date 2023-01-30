@@ -47,7 +47,7 @@ function Login () {
   useEffect(()=>{
     if(auth.isAuth !== false ){
       //  router.push("/profile")
-      cookie.set('user',auth.data.token,{expires:1})
+      // cookie.set('user',auth.data.token,{expires:1})
     }
     else{
       router.push("/login")

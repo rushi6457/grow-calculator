@@ -14,6 +14,7 @@ function Profile(){
     const auth = useSelector((store:any)=>store.auth)
     console.log(auth);   
     
+    
     useEffect(()=>{
        getProfile()
     //    .then((res)=>console.log(res)) 
