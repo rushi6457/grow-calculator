@@ -3,10 +3,12 @@ const cors = require("cors")
 const app = express()
 require('dotenv').config()
 const connect = require('./config/db')
-const PORT = process.env.PORT 
+const PORT = process.env.PORT ;
+const cookieParser = require("cookie-parser")
 const userRouter = require("./routes/userRoute")
 const calculateRouter = require("./routes/calculateRoute")
 
+app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cors({origin:true,credentials:true}))

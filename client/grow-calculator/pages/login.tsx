@@ -1,4 +1,6 @@
 import Navbar from "@/components/Navbar"
+import { login } from "@/redux/auth/actions";
+import { store } from "@/redux/store";
 import {
   Flex,
   Box,
@@ -13,11 +15,49 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import {useSelector,useDispatch} from "react-redux"
 function Login () {
 
+  const auth:any = useSelector<any>(store=>store.auth.token)
+ console.log(auth);
+ 
+  const dispatch = useDispatch()
+  const [user,setUser] = useState({
+    email:"",
+    password: ""
+  })
+  const router = useRouter()
+
+  const handleChange = (e:any) =>{
+
+      const {name,value} = e.target;
+      setUser({
+        ...user,
+        [name]:value
+      })
+  }
+  const handleSubmit = (e:any) =>{
+    e.preventDefault()
+    dispatch(login(user))
+   
+  }
+  useEffect(()=>{
+    if(auth !== '' ){
+       router.push("/profile")
+    }
+    else{
+      router.push("/login")
+    }
+  },[auth])
+
+
     return (
-        <div>
-            <Navbar/>
+
+      <>
+      <Navbar/>
+      <form onSubmit={handleSubmit}>
              <Flex
       minH={'100vh'}
       align={'center'}
@@ -38,14 +78,15 @@ function Login () {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input name="email" value={user.email} onChange={handleChange} type="email" />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input name="password" value={user.password} onChange={handleChange} type="password" />
             </FormControl>
             <Stack spacing={10}>
               <Button
+              type="submit"
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{
@@ -58,7 +99,8 @@ function Login () {
         </Box>
       </Stack>
     </Flex>
-        </div>
+        </form>
+        </>
     )
 }
 export default Login

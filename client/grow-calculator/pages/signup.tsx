@@ -14,17 +14,46 @@ import {
   Text,
   useColorModeValue,
   Link,
+  useSafeLayoutEffect,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-
+import {useSelector,useDispatch} from "react-redux"
+import { signup } from "@/redux/auth/actions";
+import { useRouter } from "next/router";
 function Signup( ){
     const [showPassword, setShowPassword] = useState(false);
+    const [user,setUser] = useState({
+      name:'',
+      email:'',
+      password:''
+    })
+    const auth:any = useSelector<any>(store=>store.auth.isRegistered)
+
+    const dispatch = useDispatch()
+    const router = useRouter()
+    const handleChange = (e:any) =>{
+        const {name,value} = e.target;
+        setUser({
+          ...user,
+          [name]:value
+        })
+    }
+
+    const handleSubmit = (e:any) =>{
+      e.preventDefault();
+        dispatch(signup(user))
+        router.push("/login")
+    }
+
+
+    
     return (
-        <div>
-    <Navbar/>
+      <>
+      <Navbar/>
+    <form onSubmit={handleSubmit}>
      <Flex
-      minH={'120vh'}
+      minH={'100vh'}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -43,20 +72,24 @@ function Signup( ){
           boxShadow={'lg'}
           p={8}>
           <Stack spacing={4}>
+
              <FormControl id="name" isRequired>
               <FormLabel>Full Name</FormLabel>
-              <Input type="text" />
+              <Input name='name' value={user.name} onChange={handleChange} type="text" />
             </FormControl>
+
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input name='email' value={user.email} onChange={handleChange} type="email" />
             </FormControl>
+
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input name='password' value={user.password} onChange={handleChange} type={showPassword ? 'text' : 'password'} />
                 <InputRightElement h={'full'}>
                   <Button
+                  
                     variant={'ghost'}
                     onClick={() =>
                       setShowPassword((showPassword) => !showPassword)
@@ -68,6 +101,7 @@ function Signup( ){
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
+                type='submit'
                 loadingText="Submitting"
                 size="lg"
                 bg={'blue.400'}
@@ -87,8 +121,8 @@ function Signup( ){
         </Box>
       </Stack>
     </Flex>
-
-        </div>
+    </form>
+        </>
     )
 }
 export default Signup

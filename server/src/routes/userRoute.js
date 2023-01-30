@@ -70,7 +70,14 @@ const Login = async(req, res) => {
                 let refreshToken = jwt.sign({email:user.email,name:user.name},process.env.SECRET_REFRESH_KEY,{
                     expiresIn:"28 days"
                 })
-                res.status(200).send({message:"Login successfull",token,refreshToken})
+
+                let data= jwt.decode(token)
+               
+                res.status(200)
+                .cookie("token",token)
+                .cookie("refresh token",refreshToken)
+                .send({message:"Login successfull",token,refreshToken,data})
+              
             }
         }
     } catch (error) {
@@ -81,12 +88,13 @@ const Login = async(req, res) => {
 
 const UserProfiles = async(req,res) =>{
     const {email} = req.body;
-    const token  = req.headers["authorization"]
-   
+    const token  = req.cookies.token
+    console.log(token);
+    const users = await UserModel.findOne({email})
     try {
         let verify = jwt.decode(token)
         if(verify.email == email){
-              const users = await UserModel.findOne({email})
+             
              res.status(200).send(users)
         } 
         else{
@@ -95,7 +103,7 @@ const UserProfiles = async(req,res) =>{
         }
       
     } catch (error) {
-        res.send({"message":error})
+        res.send({"message":"Something went wrong"})
     }
  
 }
