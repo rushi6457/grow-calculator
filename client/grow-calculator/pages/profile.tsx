@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import { Card, CardHeader, CardBody, CardFooter, Heading, Button, Text } from '@chakra-ui/react';
 import axios from 'axios'
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 
     const getProfile = async() =>{
@@ -10,8 +10,9 @@ import { useCookies } from "react-cookie";
  }
 
 function Profile(){
-     const [cookies, setCookie, removeCookie] = useCookies(['myCookie']);
-    console.log(cookies);
+    
+    const auth = useSelector((store:any)=>store.auth)
+    console.log(auth);   
     
     useEffect(()=>{
        getProfile()

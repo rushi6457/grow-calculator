@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 function Navbar () {
 
     const auth = useSelector((store:any)=>store.auth)
-    // console.log(auth);
+    console.log(auth);
     const router = useRouter()
     const [state,setState] = useState(true)
     const dispatch = useDispatch()
@@ -47,7 +47,7 @@ const handleClick = () =>{
                         <Button variant={'solid'} colorScheme={'red'}>Signup</Button>
                     </Link>  
                     <Link href={'/login'}>  
-                        <Button onClick={handleClick} variant='outline' colorScheme={'red'}>{auth ? "LOGOUT":"LOGIN"}</Button>  
+                        <Button onClick={handleClick} variant='outline' colorScheme={'red'}>{!auth  ? "LOGOUT":"LOGIN"}</Button>  
                     </Link>  
                 </Flex> 
             </Flex>    

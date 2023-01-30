@@ -18,10 +18,11 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {useSelector,useDispatch} from "react-redux"
+import cookie from "js-cookie" ;
 function Login () {
 
   const auth:any = useSelector<any>(store=>store.auth.token)
- console.log(auth);
+ console.log(auth.data);
  
   const dispatch = useDispatch()
   const [user,setUser] = useState({
@@ -44,8 +45,9 @@ function Login () {
    
   }
   useEffect(()=>{
-    if(auth !== '' ){
-       router.push("/profile")
+    if(auth.isAuth !== false ){
+      //  router.push("/profile")
+      cookie.set('user',auth.data.token,{expires:1})
     }
     else{
       router.push("/login")
