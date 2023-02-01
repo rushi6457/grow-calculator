@@ -46,7 +46,7 @@ function Login () {
   }
   useEffect(()=>{
     if(auth.isAuth !== false ){
-      //  router.push("/profile")
+       router.push("/calculate")
       // cookie.set('user',auth.data.token,{expires:1})
     }
     else{
