@@ -8,18 +8,12 @@ import styles from "../styles/Navbar.module.css";
 
 function Navbar () {
 
-    const auth = useSelector((store:any)=>store.auth)
-    // console.log(auth);
+    const auth = useSelector((store:any)=>store)
+    console.log(auth);
     const router = useRouter()
     const [state,setState] = useState(true)
     const dispatch = useDispatch()
-   useEffect(()=>{
-    
-   
-   },[])
-
-
-
+  
 const handleClick = () =>{
 
         if(auth){
@@ -32,18 +26,7 @@ const handleClick = () =>{
     return (
    
             <Flex justifyContent={'space-between'} alignItems={'center'}  padding={'10px'} bgColor={'blue.200'}  width={'100%'}>
-                    <UnorderedList textStyle={'none'} listStyleType={'none'}>
-                         <Flex justifyContent={'space-around'} gap={'50px'}>
-                            <div className={auth ? styles.show : styles.hide}>
-                                   <ListItem fontSize={'2xl'} fontWeight={'600'} >
-                                <Link  href={'/profile'}>Profile</Link>    
-                            </ListItem>    
-                            <ListItem fontSize={'2xl'}  fontWeight={'600'} >
-                                <Link href={'/calculate'}>Calculate</Link> 
-                         </ListItem>  
-                            </div>
-                        </Flex>   
-                    </UnorderedList>
+                    
                     <Heading textAlign='center'>Grow Calculator</Heading>
                 <Flex justifyContent={'space-around'} gap={'20px'} padding={'10px'}>
                     <Link href='/signup'>

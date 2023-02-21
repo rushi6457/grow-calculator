@@ -1,19 +1,26 @@
-import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS,REGISTER_SUCCESS,LOGOUT } from "./types"
+import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS,REGISTER_SUCCESS,LOGOUT, REGISTER_REQUEST, REGISTER_FAIL } from "./types"
 
-if(typeof window === 'object'){
+if(typeof window !== 'undefined'){
 
     // var token:any = (localStorage.getItem('token') || '');
+    // try {
+        //   var token:any = JSON.parse(localStorage.getItem('token') || '');
+    // } catch (error) {
+        // console.log(error);
+        
+    // }
 }
 
-const initState = {
+const loginInitState = {
     isAuth: false,
     isError: false,
     token:'',
     isLoading: false,
-    isRegistered: false
 }
 
-export const reducer = (state = initState,{type,payload}:any) =>{
+
+
+export const loginReducer = (state = loginInitState,{type,payload}:any) =>{
 
         switch(type){
 
@@ -31,10 +38,10 @@ export const reducer = (state = initState,{type,payload}:any) =>{
                 // localStorage.setItem('token',JSON.stringify(token))
                 return {
                     ...state,
+                    isAuth:true,
                     isLoading:false,
                     token: payload,
                     isError:false,
-                    isAuth:true
                 }
             }
 
@@ -57,14 +64,48 @@ export const reducer = (state = initState,{type,payload}:any) =>{
                 isError:false,
             }
         }
-            case REGISTER_SUCCESS:{
-                return {
-                    isRegistered:true,
-                }
-            }
+        
 
             default:{
                 return state
             }
         }
+}
+
+const signupInitState = {
+    isRegistered:false,
+    isRegisterLoading:false,
+    isRegisterError:false,
+}
+export const signupReducer = (state = signupInitState , {type,payload} :any) =>{
+    switch(type){
+
+    case REGISTER_REQUEST:{
+        return {
+            ...state,
+            isRegistered:false,
+            isRegisterLoading:true,
+            isRegisterError:false,
+        }
+    }
+    case REGISTER_SUCCESS:{
+        return {
+            ...state,
+            isRegistered:payload,
+            isRegisterLoading:false,
+            isRegisterError:false,
+        }
+    }
+    case REGISTER_FAIL:{
+        return {
+            ...state,
+            isRegistered:false,
+            isRegisterLoading:false,
+            isRegisterError:true,
+        }
+    }
+        default:{
+            return state
+        }
+    }
 }

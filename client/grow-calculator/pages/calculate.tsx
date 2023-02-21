@@ -18,6 +18,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js/auto';
 import axios from "axios";
 import {useEffect,useState} from "react";
 import numFormatter from "number_formatter";
+import styles from "../styles/Calculate.module.css"
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Calculate (){
@@ -32,12 +33,9 @@ function Calculate (){
       let inves = numFormatter(investmentAmount)
     console.log(inves);
     
-    
-    
     const totalInterest = investment.rateOfInterest/100 * investmentAmount
     
     const maturityValue = investment.yearlyInvestment * ((((1+0.071) ** investment.timePeriod)-1)/0.071)
-    // investment.yearlyInvestment * ((((1+investment.rateOfInterest/100)**investment.timePeriod)-1)/investment.rateOfInterest/100);
      
 const data = {
   labels: ['Total Investment','Total Interest'],
@@ -65,18 +63,14 @@ const handleChange = (e:any) =>{
         [name]:value
       })
 }
-// console.log(investment);
-
  
-
-    
     return (
         <div>
         <Navbar/>
            
-    <Flex justifyContent={'space-between'} alignItems={'center'}padding={'4rem'}gap={'-100px'}>
+    <Flex justifyContent={'space-between'} alignItems={'center'}padding={'4rem'}gap={'-100px'}className={styles.calculate}>
         
-      <Box >
+      <Box className={styles.left}>
         <Container>
             <Flex alignItems={'center'} justifyContent={'space-between'} w='200%' >
                 <Text fontSize={'25px'}>Yearly Investment</Text>

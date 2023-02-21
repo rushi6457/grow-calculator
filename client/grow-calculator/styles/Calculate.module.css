@@ -1,0 +1,10 @@
+@media screen and (max-width:1040px) and (min-width:400px) {
+    .calculate{
+        display: flex;
+        flex-direction: column;
+        gap: 5%;
+    }    
+    .left{
+        margin-left: -50%;
+    }
+}

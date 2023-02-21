@@ -14,52 +14,82 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Center,
+  Container,
+  VStack,
 } from '@chakra-ui/react';
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {useSelector,useDispatch} from "react-redux"
-import cookie from "js-cookie" ;
+import { ToastContainer, toast } from "react-toastify";
+  import 'react-toastify/dist/ReactToastify.css';
+
 function Login () {
 
-  const auth:any = useSelector<any>(store=>store.auth.token)
- console.log(auth.data);
+  const auth:any = useSelector<any>(store=>store.loginAuth)
+ console.log(auth);
+ const router:any = useRouter()
  
   const dispatch = useDispatch()
   const [user,setUser] = useState({
     email:"",
     password: ""
   })
-  const router = useRouter()
 
   const handleChange = (e:any) =>{
-
       const {name,value} = e.target;
       setUser({
         ...user,
         [name]:value
       })
   }
+
   const handleSubmit = (e:any) =>{
-    e.preventDefault()
-    dispatch(login(user))
-   
+      e.preventDefault();
+      dispatch(login(user));
   }
+
   useEffect(()=>{
-    if(auth.isAuth !== false ){
-       router.push("/calculate")
-      // cookie.set('user',auth.data.token,{expires:1})
-    }
-    else{
-      router.push("/login")
-    }
-  },[auth])
+      if(auth.token.status === true){
+        toast.success(auth.token.message)
+          router.push("/calculate")
+      }
+      else if(auth.token.status === false){
+        toast.error(auth.token.message)
+      }
+  },[auth.token.status])
 
 
     return (
 
-      <>
+      <div>
       <Navbar/>
-      <form onSubmit={handleSubmit}>
+      <Center>
+          <form 
+              onSubmit={handleSubmit}
+             style={{border:'1px solid', width:'40%',marginTop:'10%', height:'50vh',padding:'15px'}}
+          >
+              <Heading textAlign={'center'}>Login</Heading>
+              <Container>
+                  <FormLabel>Email</FormLabel>
+                  <Input 
+                    onChange={handleChange}
+                    name='email' 
+                    value={user.email}></Input>
+                  <FormLabel>Password</FormLabel>
+                  <Input 
+                    onChange={handleChange}
+                    name='password' 
+                    value={user.password}></Input>
+                  <Button 
+                    type="submit"
+                    mt='4' 
+                    w='100%'>Login</Button>
+              </Container>
+          </form>
+          <ToastContainer/>
+      </Center>
+      {/* <form onSubmit={handleSubmit}>
              <Flex
       minH={'100vh'}
       align={'center'}
@@ -101,8 +131,8 @@ function Login () {
         </Box>
       </Stack>
     </Flex>
-        </form>
-        </>
+        </form> */}
+        </div>
     )
 }
 export default Login

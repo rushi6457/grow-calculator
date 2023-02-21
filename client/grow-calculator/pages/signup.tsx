@@ -17,18 +17,35 @@ import {
   useSafeLayoutEffect,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useSelector,useDispatch} from "react-redux"
 import { signup } from "@/redux/auth/actions";
 import { useRouter } from "next/router";
-function Signup( ){
-    const [showPassword, setShowPassword] = useState(false);
-    const [user,setUser] = useState({
+ import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
+const  Signup = ( ):JSX.Element =>{
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [user,setUser] = useState<any>({
       name:'',
       email:'',
       password:''
     })
-    const auth:any = useSelector<any>(store=>store.auth.isRegistered)
+    const auth:any = useSelector<any>(store=>store.signupAuth)
+    console.log(auth);
+    
+    <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+    />
 
     const dispatch = useDispatch()
     const router = useRouter()
@@ -39,12 +56,22 @@ function Signup( ){
           [name]:value
         })
     }
-
     const handleSubmit = (e:any) =>{
       e.preventDefault();
         dispatch(signup(user))
-        router.push("/login")
+      
     }
+    useEffect(()=>{
+      if(auth.isRegistered.status === true){
+        toast.success(auth.isRegistered.message)
+          router.push("/login")
+      }
+      else{
+         toast.error(auth.isRegistered.message)
+      }
+    },[auth.isRegistered.status])
+
+
 
 
     
@@ -57,37 +84,63 @@ function Signup( ){
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'} textAlign={'center'}>
+      <Stack 
+        spacing={8} 
+        mx={'auto'} 
+        maxW={'lg'} 
+        py={12} 
+        px={6}>
+
+        <Stack 
+            align={'center'}>
+          <Heading 
+            fontSize={'4xl'} 
+            textAlign={'center'}>
             Sign up
           </Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
+          <Text 
+            fontSize={'lg'} 
+            color={'gray.600'}>
             to enjoy all of our cool features ✌️
           </Text>
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}>
+            rounded={'lg'}
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
+            p={8}>
           <Stack spacing={4}>
 
              <FormControl id="name" isRequired>
               <FormLabel>Full Name</FormLabel>
-              <Input name='name' value={user.name} onChange={handleChange} type="text" />
+              <Input 
+                  name='name' 
+                  value={user.name} 
+                  onChange={handleChange} 
+                  type="text" />
             </FormControl>
 
-            <FormControl id="email" isRequired>
+            <FormControl 
+                id="email" 
+                isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input name='email' value={user.email} onChange={handleChange} type="email" />
+              <Input 
+                  name='email' 
+                  value={user.email} 
+                  onChange={handleChange} 
+                  type="email" />
             </FormControl>
 
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input name='password' value={user.password} onChange={handleChange} type={showPassword ? 'text' : 'password'} />
-                <InputRightElement h={'full'}>
+                <Input 
+                    name='password' 
+                    value={user.password} 
+                    onChange={handleChange} 
+                    type={showPassword ? 'text' : 'password'} />
+                <InputRightElement 
+                    h={'full'}>
                   <Button
                   
                     variant={'ghost'}
@@ -122,6 +175,7 @@ function Signup( ){
       </Stack>
     </Flex>
     </form>
+    <ToastContainer/>
         </>
     )
 }

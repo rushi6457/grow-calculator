@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, compose, createStore, legacy_createStore } from "redux";
 import thunk from "redux-thunk";
-import { reducer } from "./auth/reducer";
+import { loginReducer, signupReducer } from "./auth/reducer";
 
 declare global {
   interface Window {
@@ -10,7 +10,8 @@ declare global {
 
 
 const rootReducer = combineReducers({
-    auth:reducer
+    loginAuth:loginReducer,
+      signupAuth:signupReducer
 })
 
 const createComposer = typeof window === 'object' &&     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
