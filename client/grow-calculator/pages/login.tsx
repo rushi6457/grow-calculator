@@ -20,9 +20,9 @@ import {
 } from '@chakra-ui/react';
 import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import {useSelector,useDispatch} from "react-redux"
+import {useSelector,useDispatch} from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login () {
 
@@ -67,7 +67,7 @@ function Login () {
       <Center>
           <form 
               onSubmit={handleSubmit}
-             style={{border:'1px solid', width:'40%',marginTop:'10%', height:'50vh',padding:'15px'}}
+             style={{border:'1px solid',borderColor:'gray', width:'40%',marginTop:'10%', height:'50vh',padding:'15px',borderRadius:'10px'}}
           >
               <Heading textAlign={'center'}>Login</Heading>
               <Container>
@@ -82,6 +82,8 @@ function Login () {
                     name='password' 
                     value={user.password}></Input>
                   <Button 
+                    variant={'solid'}
+                    colorScheme="red"
                     type="submit"
                     mt='4' 
                     w='100%'>Login</Button>

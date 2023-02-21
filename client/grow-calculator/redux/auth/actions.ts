@@ -1,7 +1,7 @@
 import axios from "axios"
 import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_SUCCESS,LOGOUT, REGISTER_REQUEST } from "./types"
 
-export const login = (creds:any) =>async(dispatch:any) =>{
+export const login:any = (creds:any) =>async(dispatch:any) =>{
 
         dispatch({type:LOGIN_REQUEST})
 
@@ -15,7 +15,7 @@ export const login = (creds:any) =>async(dispatch:any) =>{
         }
 }
 
-export const signup = (creds:any) =>async(dispatch:any) =>{
+export const signup:any = (creds:any) =>async(dispatch:any) =>{
             dispatch({type:REGISTER_REQUEST})
         const res:any = await axios.post(`http://localhost:5000/user/signup`,creds)
         console.log(res.data);

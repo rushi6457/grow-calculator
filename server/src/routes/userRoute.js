@@ -9,7 +9,7 @@ const Signup  = async(req,res) =>{
     const existinguser = await UserModel.findOne({email})
     try {
         if(existinguser){
-            res.send({message:"Existing user, login to proceed"})
+            res.send({message:"Existing user, login to proceed",status:false})
         }
         else{
             let newUser = new UserModel({
@@ -18,7 +18,7 @@ const Signup  = async(req,res) =>{
                 password:hashedPassword
             })
             await newUser.save()
-            res.status(200).send({message:"Signup success",name,email})
+            res.status(200).send({message:"Signup success",name,email,status:true})
         }
     } catch (error) {
     res.send({message:error})
@@ -60,7 +60,7 @@ const Login = async(req, res) => {
    
     try {
         if(!user){
-            res.send({message:"User not found, please signup"})
+            res.send({message:"User not found, please signup",status:false})
         }
         else{
             if(user && await argon.verify(user.password,password)){
@@ -76,12 +76,12 @@ const Login = async(req, res) => {
                 res.status(200)
                 .cookie("token",token)
                 .cookie("refresh token",refreshToken)
-                .send({message:"Login successfull",token,refreshToken,data})
+                .send({message:"Login successfull",token,refreshToken,data,status:true})
               
             }
         }
     } catch (error) {
-        res.send({message:"Login failed"})
+        res.send({message:"Login failed",status:false})
     }
 
 } 

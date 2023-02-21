@@ -26,8 +26,9 @@ const handleClick = () =>{
     return (
    
             <Flex justifyContent={'space-between'} alignItems={'center'}  padding={'10px'} bgColor={'blue.200'}  width={'100%'}>
-                    
+                <Link href='/'>  
                     <Heading textAlign='center'>Grow Calculator</Heading>
+                </Link>
                 <Flex justifyContent={'space-around'} gap={'20px'} padding={'10px'}>
                     <Link href='/signup'>
                         <Button variant={'solid'} colorScheme={'red'}>Signup</Button>

@@ -5,7 +5,7 @@ export function PrivateRoute({children}:any){
 
         const auth = useSelector((store:any)=>store.auth.isAuth)
 
-        let {pathname} = useRouter()
+        let {pathname}:any = useRouter()
 
         if(auth){
             return children

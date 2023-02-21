@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Navbar from '@/components/Navbar'
+import { Flex, Grid, GridItem, Heading, Text, VStack } from '@chakra-ui/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +17,65 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar/>
-     
+      <Flex align={'center'}justifyContent={'space-around'}>
+   
+        <VStack>
+        <Heading>Start your invest journey with grow</Heading>
+              <Text fontSize={'1.6rem'}>Trusted by Millions of Indians. Start investing today.</Text>
+          </VStack>
+      <Grid templateColumns={'repeat(2,1fr)'}>
+        <GridItem 
+            color={'red'}
+            className={styles.gridItem}
+            padding={'20px'}
+            fontSize={'1.5rem'}
+            fontWeight={'500'}
+            borderRadius={'15px'}
+            height={'150px'}
+            width={'200px'}
+            margin={'30px'}>Mutual Funds</GridItem>
+        <GridItem 
+            color={'green'}
+            className={styles.gridItem}
+            padding={'20px'}
+            fontSize={'1.5rem'}
+            fontWeight={'500'}
+            borderRadius={'15px'}
+            height={'150px'}
+            width={'200px'}
+            margin={'30px'}>Stocks</GridItem>
+        <GridItem 
+            color={'blue'}
+            className={styles.gridItem}
+            padding={'20px'}
+            fontSize={'1.5rem'}
+            fontWeight={'500'}
+            borderRadius={'15px'}
+            height={'150px'}
+            width={'200px'}
+            margin={'30px'}>Future & Options</GridItem>
+        <GridItem 
+
+            className={styles.gridItem}
+            padding={'20px'}
+            fontSize={'1.5rem'}
+            fontWeight={'500'}
+            borderRadius={'15px'}
+            height={'150px'}
+            width={'200px'}
+            margin={'30px'}>US Stocks</GridItem>
+        <GridItem 
+            color={'orange'}
+            className={styles.gridItem}
+            padding={'20px'}
+            fontSize={'1.5rem'}
+            fontWeight={'500'}
+            borderRadius={'15px'}
+            height={'150px'}
+            width={'200px'}
+            margin={'30px'}>IPO</GridItem>
+      </Grid>
+      </Flex>
     </>
   )
 }

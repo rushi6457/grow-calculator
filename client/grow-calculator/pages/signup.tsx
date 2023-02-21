@@ -24,7 +24,7 @@ import { useRouter } from "next/router";
  import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
-const  Signup = ( ):JSX.Element =>{
+const  Signup = ():JSX.Element =>{
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [user,setUser] = useState<any>({
       name:'',

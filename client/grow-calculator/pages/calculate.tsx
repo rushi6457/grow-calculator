@@ -17,11 +17,12 @@ import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js/auto';
 import axios from "axios";
 import {useEffect,useState} from "react";
-import numFormatter from "number_formatter";
-import styles from "../styles/Calculate.module.css"
+const numFormatter = require("number_formatter")
+import styles from "../styles/Calculate.module.css";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function Calculate (){
+const Calculate =  (): JSX.Element =>{
 
   const [investment,setInvestment] = useState({
       yearlyInvestment:500,
