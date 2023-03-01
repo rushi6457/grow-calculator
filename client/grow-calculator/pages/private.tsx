@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
-export function PrivateRoute({children}:any){
+export default function PrivateRoute({children}:any){
 
         const auth = useSelector((store:any)=>store.auth.isAuth)
 

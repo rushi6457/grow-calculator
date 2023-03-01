@@ -5,7 +5,7 @@ import styles from '@/styles/Home.module.css'
 import Navbar from '@/components/Navbar'
 import { Flex, Grid, GridItem, Heading, Text, VStack } from '@chakra-ui/react'
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
